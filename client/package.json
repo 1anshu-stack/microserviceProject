@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@uchihatickets/common": "^1.0.10",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "next": "^14.2.13",
