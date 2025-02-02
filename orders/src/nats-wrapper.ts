@@ -1,7 +1,9 @@
 import nats, { Stan } from 'node-nats-streaming';
 
+
 class NatsWrapper {
   private _client?: Stan;
+
 
   get client() {
     if (!this._client) {
@@ -11,8 +13,10 @@ class NatsWrapper {
     return this._client;
   }
 
+
   connect(clusterId: string, clientId: string, url: string) {
     this._client = nats.connect(clusterId, clientId, { url });
+
 
     return new Promise<void>((resolve, reject) => {
       this.client.on('connect', () => {
@@ -25,5 +29,6 @@ class NatsWrapper {
     });
   }
 }
+
 
 export const natsWrapper = new NatsWrapper();
