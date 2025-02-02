@@ -8,6 +8,7 @@ import { indexOrderRouter } from './routes/index';
 import { newOrderRouter } from './routes/new';
 import { showOrderRouter } from './routes/show';
 
+
 const app = express();
 app.set('trust proxy', true);
 app.use(json());
@@ -24,9 +25,11 @@ app.use(indexOrderRouter);
 app.use(newOrderRouter);
 app.use(showOrderRouter);
 
+
 app.all('*', async (req, res) => {
   throw new NotFoundError();
 });
+
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   errorHandler(err, req, res, next);

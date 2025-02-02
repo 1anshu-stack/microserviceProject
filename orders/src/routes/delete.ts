@@ -2,16 +2,15 @@ import express, { Request, Response } from 'express';
 import {
   requireAuth,
   NotFoundError,
-  NotAuthorizedError,
+  NotAuthorizedError
 } from '@uchihatickets/common';
 import { Order, OrderStatus } from '../models/order';
 import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
-
 const router = express.Router();
 
-router.delete( 
+router.delete(
   '/api/orders/:orderId',
   requireAuth,
   async (req: Request, res: Response) => {
@@ -28,16 +27,15 @@ router.delete(
     order.status = OrderStatus.Cancelled;
     await order.save();
 
-
     // publishing an event saying this was cancelled!
     new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order.id,
+      version: order.version,
       ticket: {
         id: order.ticket.id
       }
-    })
+    });
 
-     
     res.status(204).send(order);
   }
 );
