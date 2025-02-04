@@ -3,10 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@uchihatickets/common';
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes/index';
-import { updateTicketRouter } from './routes/update';
+import { createChargeRouter } from './routes/new';
 
 
 const app = express();
@@ -20,10 +17,7 @@ app.use(
 );
 app.use(currentUser);
 
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
+app.use(createChargeRouter);
 
 
 app.all('*', async (req, res) => {
@@ -37,5 +31,3 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 
 
 export { app };
-
-
