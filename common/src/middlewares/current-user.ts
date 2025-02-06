@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
+
 interface UserPayload {
   id: string;
   email: string;
 }
+
 
 declare global {
   namespace Express {
@@ -13,6 +15,7 @@ declare global {
     }
   }
 }
+
 
 export const currentUser = (
   req: Request,
@@ -23,6 +26,7 @@ export const currentUser = (
     return next();
   }
 
+
   try {
     const payload = jwt.verify(
       req.session.jwt,
@@ -31,5 +35,6 @@ export const currentUser = (
     req.currentUser = payload;
   } catch (err) {}
 
+  
   next();
 };

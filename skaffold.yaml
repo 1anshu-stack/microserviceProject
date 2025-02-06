@@ -15,7 +15,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: rallycoding/ticketing-client
+    - image: anshuyd/client
       context: client
       docker:
         dockerfile: Dockerfile
